@@ -8,7 +8,7 @@ export class Application {
     position: string;
     questions: Question[];
     experience: number;
-    // availability: Availability;
+    availability: Availability;
     // application layer properties
     isFavorited: boolean;
     isBookmarked: boolean;

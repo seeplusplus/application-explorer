@@ -1,5 +1,9 @@
 <div>
-    <div>{{ application.name }} </div>
+    <div><span>{{ application.name }}</span></div>
+    <div>
+        <span class="position">{{ application.position }}</span> - <span class="applied"> {{ application.applied | date }}</span>
+    </div>
+    <app-availability [availability]="application.availability"></app-availability>
     <a routerLink="/detail" routerLinkActive="active" >Click here to see details for this candidate</a>
 </div>
 

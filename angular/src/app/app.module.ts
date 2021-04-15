@@ -8,13 +8,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApplicationDetailComponent } from './application-detail/application-detail.component';
 import { ApplicationsListComponent } from './applications-list/applications-list.component';
 import { StoreModule } from '@ngrx/store';
+import { AvailabilityComponent } from './availability/availability.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ApplicationItemComponent,
     ApplicationDetailComponent,
-    ApplicationsListComponent
+    ApplicationsListComponent,
+    AvailabilityComponent
   ],
   imports: [
     BrowserModule,
