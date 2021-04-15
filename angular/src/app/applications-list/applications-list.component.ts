@@ -32,7 +32,6 @@ export class ApplicationsListComponent implements OnInit {
   }
 
   public getPositions() {
-    console.log(this);
     return ["Server", "Cook", "Chef"]
     /* return this.Applications
       .map(a => a.position)

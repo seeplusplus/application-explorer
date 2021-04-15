@@ -5,7 +5,7 @@ import { ApplicationDetailComponent } from './application-detail/application-det
 
 const routes: Routes = [
   { path: '', component: ApplicationsListComponent },
-  { path: 'detail', component: ApplicationsListComponent }
+  { path: 'detail', component: ApplicationDetailComponent }
 ];
 
 @NgModule({
