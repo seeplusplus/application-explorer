@@ -7,6 +7,7 @@ import { ApplicationItemComponent } from './application-item/application-item.co
 import { HttpClientModule } from '@angular/common/http';
 import { ApplicationDetailComponent } from './application-detail/application-detail.component';
 import { ApplicationsListComponent } from './applications-list/applications-list.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ApplicationsListComponent } from './applications-list/applications-list
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [],
   bootstrap: [AppComponent]
