@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Application } from '../application';
 import { ApplicationsService } from '../applications.service'
 
+import {FormControl} from '@angular/forms';
+
+
 @Component({
   selector: 'app-applications-list',
   templateUrl: './applications-list.component.html',
   styleUrls: ['./applications-list.component.sass']
 })
 export class ApplicationsListComponent implements OnInit {
+  positionSelector = new FormControl();
 
   public applications: Application[];
   

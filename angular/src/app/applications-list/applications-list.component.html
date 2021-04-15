@@ -1,21 +1,30 @@
 <div class="row">
   <div class="button-container col-sm-12 col-md-4">
-    <select>
-      <option>Application Date</option>
-      <option>Name</option>
-      <option>Experience</option>
-    </select>
-    <button (click)="toggleSorting()">Toggle Sorting</button>
+    <mat-form-field appearance="fill">
+      <mat-label>Order by</mat-label>
+      <mat-select>
+        <mat-option value="name">Name</mat-option>
+        <mat-option value="application-date">Application Date</mat-option>
+        <mat-option value="experience">Experience</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" (click)="toggleSorting()"><mat-icon>sort</mat-icon></button>
   </div>
 
   <div class="button-container col-sm-12 col-md-4">
-    <select class="position-select">
-      <option *ngFor="let position of getPositions()">{{position}}</option>
-    </select>
+    <mat-form-field appearance="fill">
+      <mat-label>Filter by position</mat-label>
+      <mat-select multiple>
+        <mat-option *ngFor="let topping of getPositions()" [value]="topping">{{topping}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="button-container col-sm-12 col-md-4">
-    <input (input)=refreshList() [value]="nameSearch" type="text" placeholder="Filter by candidate name"/>
+    <mat-form-field appearance="fill">
+      <mat-label>Search by name</mat-label>
+      <input matInput type="text" >
+    </mat-form-field>
   </div>
 </div>
 <div class="application-list row">
