@@ -18,65 +18,7 @@ namespace applications_fn
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
-            var applications = new List<Application>() {
-                new Application() {
-                    Id = 0,
-                    CandidateName = "Caleb Webber",
-                    Availability = new Availability() {
-                        Monday = true,
-                        Tuesday = false,
-                        Wednesday = false,
-                        Thursday = true,
-                        Friday = true,
-                        Saturday = false,
-                        Sunday = false
-                    },
-                    Questions = new List<Question>() {
-                        new Question() {
-                            Text = "Are you available to work in the US?",
-                            Answer = "Yes"
-                        }
-                    }
-                },
-                new Application() {
-                    Id = 0,
-                    CandidateName = "John Doe",
-                    Availability = new Availability() {
-                        Monday = true,
-                        Tuesday = true,
-                        Wednesday = true,
-                        Thursday = true,
-                        Friday = true,
-                        Saturday = true,
-                        Sunday = true
-                    },
-                    Questions = new List<Question>() {
-                        new Question() {
-                            Text = "Are you available to work in the US?",
-                            Answer = "Yes"
-                        }
-                    }
-                },
-                new Application() {
-                    Id = 0,
-                    CandidateName = "Alice",
-                    Availability = new Availability() {
-                        Monday = false,
-                        Tuesday = false,
-                        Wednesday = false,
-                        Thursday = false,
-                        Friday = false,
-                        Saturday = false,
-                        Sunday = false
-                    },
-                    Questions = new List<Question>() {
-                        new Question() {
-                            Text = "Are you available to work in the US?",
-                            Answer = "Yes"
-                        }
-                    }
-                },
-            };
+            var applications = JsonConvert.DeserializeObject<List<Application>>(System.IO.File.ReadAllText("./data.json"));
             
 
             return new OkObjectResult(applications);
