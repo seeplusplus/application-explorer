@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ApplicationsListComponent } from './applications-list/applications-list.component'
+import { ApplicationHomeComponent } from './application-home/application-home.component'
 import { ApplicationDetailComponent } from './application-detail/application-detail.component'
 
 const routes: Routes = [
-  { path: '', component: ApplicationsListComponent },
+  { path: '', component: ApplicationHomeComponent },
   { path: 'detail', component: ApplicationDetailComponent }
 ];
 

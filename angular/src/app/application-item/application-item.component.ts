@@ -12,6 +12,8 @@ import { Application } from '../application';
 export class ApplicationItemComponent implements OnInit {
   @Input ()
   application: Application;
+  savedForLater = false
+  isBookmarked = false
   
   constructor() { }
 

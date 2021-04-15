@@ -7,12 +7,12 @@ import { Availability } from '../availability';
 })
 export class AvailabilityComponent implements OnInit {
   @Input()
-  public availability: Availability;
-
+  availability: Availability;
+  days = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su'];
+  
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.availability);
   }
 
 }

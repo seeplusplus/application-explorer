@@ -1,9 +1,16 @@
-<div>
-    <div><span>{{ application.name }}</span></div>
-    <div>
-        <span class="position">{{ application.position }}</span> - <span class="applied"> {{ application.applied | date }}</span>
+<div class="application row">
+    <div class="col-12">
+        <span class="name">{{ application.name }}</span>
     </div>
-    <app-availability [availability]="application.availability"></app-availability>
-    <a routerLink="/detail" routerLinkActive="active" >Click here to see details for this candidate</a>
+    <div class="col-12">
+        <p>Applied for the <span class="position">{{ application.position }}</span> position on <span class="applied">{{ application.applied | date }}</span>.</p>
+    </div>
+    <div class="col-12">
+        <app-availability [availability]="application.availability"></app-availability>
+    </div>
+    <div class="col-12">
+        <button color="{{isBookmarked ? 'accent' : 'primary'}}" (click)="isBookmarked=!isBookmarked" mat-mini-fab><mat-icon>bookmark</mat-icon></button>
+        <button color="{{savedForLater ? 'accent' : 'primary'}}" (click)="savedForLater=!savedForLater" mat-mini-fab><mat-icon>search</mat-icon></button>
+    </div>
 </div>
 
