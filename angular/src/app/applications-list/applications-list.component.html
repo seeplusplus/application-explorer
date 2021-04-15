@@ -1,0 +1,24 @@
+<div class="button-container">
+    <select>
+      <option>Application Date</option>
+      <option>Name</option>
+      <option>Experience</option>
+    </select>
+    <button (click)="toggleSorting()">Toggle Sorting</button>
+  </div>
+  
+  <div class="button-container">
+    <select class="position-select">
+      <option *ngFor="let position of getPositions()">{{position}}</option>
+    </select>
+  </div>
+  
+  <div class="button-container">
+    <input (input)=refreshList() [value]="nameSearch" type="text" placeholder="Filter by candidate name"/>
+  </div>
+  
+  <div class="application-container">
+    <div *ngFor="let app of applications">
+      <app-application-item [application]="app" ></app-application-item>
+    </div>
+  </div>

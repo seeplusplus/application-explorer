@@ -3,8 +3,14 @@ import { Question  } from "./question";
 
 export class Application {
     id: number;
-    candidateName: string;
+    applied: Date;
+    name: string;
+    position: string;
     questions: Question[];
-    availability: Availability;
+    experience: number;
+    // availability: Availability;
+    // application layer properties
     isFavorited: boolean;
+    isBookmarked: boolean;
+    isMarkedForLater: boolean;
 }

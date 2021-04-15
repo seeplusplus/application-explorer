@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApplicationsService {
-  private _getApplicationsUrl = "http://localhost:7071/api/applications";
+  //private _getApplicationsUrl = "http://localhost:7071/api/applications";
+  private _getApplicationsUrl = "assets/data.json";
 
   constructor(private httpClient: HttpClient) { }
 
