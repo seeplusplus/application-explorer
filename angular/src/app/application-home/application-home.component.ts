@@ -1,8 +1,9 @@
 import { Component,  OnInit } from '@angular/core';
 import { Application } from '../application';
 import { ApplicationsService } from '../applications.service'
-
+import { Days } from "../availability";
 import {FormControl} from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-application-home',
@@ -10,15 +11,17 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./application-home.component.sass']
 })
 export class ApplicationHomeComponent implements OnInit {
-
-  positionSelector = new FormControl();
-  orderByValue = "name";
-  sortAscending = true;
+  days = Days;
+  
   applications: Application[];
   displayApplications: Application[];
-  nameSearch: string;
-  filterQuery = () => true;
   
+  sortAscending = true;
+  orderByValue = new FormControl("name");
+  selectedPositions = new FormControl([]);
+  selectedDays = new FormControl([]);
+  nameSearch =new FormControl("");
+
   constructor(private ApplicationsService: ApplicationsService) { }
   
   ngOnInit(): void {
@@ -34,29 +37,30 @@ export class ApplicationHomeComponent implements OnInit {
     this.refreshList()
   }
 
-  public getApplications() {
-    return this.applications.filter(this.filterQuery);
-  }
-  public filterByName(name: string) {
-    this.displayApplications = this.applications
-      .filter((value) => value.name.toLowerCase().match(name.toLowerCase()));
+  public getPositions() {
+    return ["Server", "Cook", "Chef"]
   }
   public refreshList() {
+    this.displayApplications = this.applications
+      .filter(value => {
+        return value.name.toLowerCase().match(this.nameSearch.value.toLowerCase())
+        && (this.selectedPositions.value.length === 0 || this.selectedPositions.value.indexOf(value.position) >= 0)
+        && (this.selectedDays.value.length === 0 || this.selectedDays.value.every((d) => value.availability[d] > 0))
+      });
+    
     let sortFactor = (this.sortAscending) ? -1 : 1;
+
     this.displayApplications.sort((a, b) => {
-      if (a[this.orderByValue] > b[this.orderByValue])
+      if (a[this.orderByValue.value] > b[this.orderByValue.value])
         return sortFactor;
-      else if (a[this.orderByValue] < b[this.orderByValue])
+      else if (a[this.orderByValue.value] < b[this.orderByValue.value])
         return -1 * sortFactor;
       else
         return 0;
     });
   }
 
-  public getPositions() {
-    return ["Server", "Cook", "Chef"]
-    /* return this.Applications
-      .map(a => a.position)
-      .filter((value, index, self) => self.indexOf(value) === index);*/
+  private employeeAvailableForDays(application: Application, days: string[]){
+    return ;
   }
 }

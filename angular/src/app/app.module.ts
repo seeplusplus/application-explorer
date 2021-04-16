@@ -17,7 +17,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
-import {MatButtonToggleModule} from '@angular/material/button-toggle'; 
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { DayNamePipe } from './day-name.pipe'; 
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     ApplicationDetailComponent,
     ApplicationListComponent,
     AvailabilityComponent,
-    ApplicationHomeComponent
+    ApplicationHomeComponent,
+    DayNamePipe
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatButtonModule,
     MatIconModule,
     MatInputModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

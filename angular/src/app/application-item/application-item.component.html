@@ -8,7 +8,7 @@
     <div class="col-12">
         <app-availability [availability]="application.availability"></app-availability>
     </div>
-    <div class="col-12">
+    <div class="col-12 application-btn-group">
         <button color="{{isBookmarked ? 'accent' : 'primary'}}" (click)="isBookmarked=!isBookmarked" mat-mini-fab><mat-icon>bookmark</mat-icon></button>
         <button color="{{savedForLater ? 'accent' : 'primary'}}" (click)="savedForLater=!savedForLater" mat-mini-fab><mat-icon>search</mat-icon></button>
     </div>
