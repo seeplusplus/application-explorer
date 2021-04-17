@@ -5,3 +5,5 @@
 3. bookmarks modal
 4. modal for details?
    * make details page less empty
+5. add bookmark/saved buttons to application/detail page
+6. separate bookmark/saved buttons to own component
