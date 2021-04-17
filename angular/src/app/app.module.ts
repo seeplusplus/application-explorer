@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 // @ngrx imports
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, ActionReducerMap, MetaReducer, ActionReducer } from '@ngrx/store';
+import { localStorageSync } from 'ngrx-store-localstorage';
 // component imports
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,7 @@ import { ApplicationListComponent } from './application-list/application-list.co
 import { AvailabilityComponent } from './availability/availability.component';
 import { ApplicationHomeComponent } from './application-home/application-home.component';
 // state imports 
+import { AppState } from './state/app.state';
 import { bookmarkReducer } from './state/bookmarks.reducer';
 import { viewlaterReducer } from './state/viewlater.reducer';
 import { applicationReducer } from './state/application.reducer';
@@ -26,6 +28,16 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { DayNamePipe } from './day-name.pipe'; 
 import { ReactiveFormsModule } from '@angular/forms';
+
+
+const reducers: ActionReducerMap<AppState> = { bookmarks: bookmarkReducer, savedForLater: viewlaterReducer, applications: applicationReducer };
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({keys: ['bookmarks', 'savedForLater', 'applications'], 
+  rehydrate: true})(reducer);
+}
+
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [
@@ -41,7 +53,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({ bookmarks: bookmarkReducer, savedForLater: viewlaterReducer, applications: applicationReducer }),
+    StoreModule.forRoot(reducers, {metaReducers}),
     BrowserAnimationsModule,
     MatSelectModule,
     MatFormFieldModule,

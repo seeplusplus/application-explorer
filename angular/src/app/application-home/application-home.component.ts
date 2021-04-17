@@ -71,8 +71,4 @@ export class ApplicationHomeComponent implements OnInit {
   public viewSaved() {
     this.store.pipe(select(selectSavedApplications)).subscribe(e => console.log(e));
   }
-
-  private employeeAvailableForDays(application: Application, days: string[]){
-    return ;
-  }
 }

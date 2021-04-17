@@ -1,6 +1,7 @@
+import { Store, select } from "@ngrx/store";
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { Application } from '../application';
-
+import { selectBookmarkedApplications, selectSavedApplications } from "../selector/application.selectors";
 
 @Component({
   selector: 'app-application-item',
@@ -17,9 +18,14 @@ export class ApplicationItemComponent implements OnInit {
   savedForLater = false
   isBookmarked = false
   
-  constructor() { }
+  constructor(private store: Store) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.store.pipe(select(selectBookmarkedApplications))
+      .subscribe(b => this.isBookmarked = b.filter(a => a.id  == this.application.id).length > 0);
+    this.store.pipe(select(selectSavedApplications))
+      .subscribe(b => this.savedForLater = b.filter(a => a.id  == this.application.id).length > 0);
+  }
 
   public onBookmark() {
     this.isBookmarked = !this.isBookmarked;
