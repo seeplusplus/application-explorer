@@ -4,7 +4,7 @@
     <button mat-mini-fab color="primary" (click)="toggleSorting()"><mat-icon matTooltip="Sort {{sortAscending ? 'descending' : 'ascending'}}">{{ sortAscending ? "arrow_upward" : "arrow_downward" }}</mat-icon></button>
     <mat-form-field appearance="fill">
       <mat-label>Order by</mat-label>
-      <mat-select [formControl]="orderByValue">
+      <mat-select (selectionChange)="refreshList()" [formControl]="orderByValue">
         <mat-option value="name">Name</mat-option>
         <mat-option value="applied">Application Date</mat-option>
         <mat-option value="experience">Experience</mat-option>
