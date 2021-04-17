@@ -19,3 +19,8 @@ export const selectSavedApplications = createSelector(
     (applications: Application[], saved: ReadonlyArray<number>) => 
         applications.filter(a => saved.indexOf(a.id) > -1)
 );
+
+export const selectApplicationById = createSelector(
+    applicationsSelector,
+    (applications: Application[], props) => applications.find(a => a.id === +props.id)
+);
