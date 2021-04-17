@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { Application } from '../application';
 
@@ -13,6 +13,9 @@ export class ApplicationListComponent implements OnInit {
   @Input()
   applications: Application[];
 
+  @Output()
+  listStateChanged: EventEmitter<number> = new EventEmitter();
+
   ngOnInit(): void {
 
   }
@@ -23,6 +26,8 @@ export class ApplicationListComponent implements OnInit {
       this.store.dispatch(addBookmark({ applicationId: bookmarkEvent.applicationId }));
     else
       this.store.dispatch(removeBookmark({  applicationId: bookmarkEvent.applicationId }));
+    
+    this.listStateChanged.emit(bookmarkEvent.applicationId);
   }
 
   public handleSaveEvent(viewLaterEvent) {
@@ -30,5 +35,7 @@ export class ApplicationListComponent implements OnInit {
       this.store.dispatch(addForViewLater({ applicationId: viewLaterEvent.applicationId }));
     else
       this.store.dispatch(removeFromViewLater({  applicationId: viewLaterEvent.applicationId }));
+
+    this.listStateChanged.emit(viewLaterEvent.applicationId);
   }
 }

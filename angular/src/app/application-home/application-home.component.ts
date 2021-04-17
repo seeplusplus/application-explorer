@@ -9,7 +9,7 @@ import { retrievedApplications } from "../state/application.actions";
 import { selectBookmarkedApplications, selectSavedApplications } from "../selector/application.selectors";
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { BookmarkDialog } from '../dialog/bookmark-dialog.component';
-
+import { MatCheckboxChange } from '@angular/material/checkbox';
 @Component({
   selector: 'app-application-home',
   templateUrl: './application-home.component.html',
@@ -26,7 +26,8 @@ export class ApplicationHomeComponent implements OnInit {
   orderByValue = new FormControl("name");
   selectedPositions = new FormControl([]);
   selectedDays = new FormControl([]);
-  nameSearch =new FormControl("");
+  nameSearch = new FormControl("");
+  filterOnSaved = false;
 
   constructor(private ApplicationsService: ApplicationsService,
     private store: Store,
@@ -45,6 +46,10 @@ export class ApplicationHomeComponent implements OnInit {
     this.sortAscending = !this.sortAscending;
     this.refreshList()
   }
+  public toggleSavedOnly(event: MatCheckboxChange) {
+    this.filterOnSaved = event.checked;
+    this.refreshList()
+  }
 
   public getPositions() {
     return ["Server", "Cook", "Chef"]
@@ -55,6 +60,7 @@ export class ApplicationHomeComponent implements OnInit {
         return value.name.toLowerCase().match(this.nameSearch.value.toLowerCase())
         && (this.selectedPositions.value.length === 0 || this.selectedPositions.value.indexOf(value.position) >= 0)
         && (this.selectedDays.value.length === 0 || this.selectedDays.value.every((d) => value.availability[d] > 0))
+        && (!this.filterOnSaved || this.applicationIsSaved(value.id))
       });
     
     let sortFactor = (this.sortAscending) ? -1 : 1;
@@ -71,10 +77,14 @@ export class ApplicationHomeComponent implements OnInit {
 
   public openBookmarks() {
     this.dialog.open(BookmarkDialog)
-    this.store.pipe(select(selectBookmarkedApplications)).subscribe(e => console.log(e));
   }
 
-  public viewSaved() {
-    this.store.pipe(select(selectSavedApplications)).subscribe(e => console.log(e));
+  private applicationIsSaved(applicationId: number): boolean {
+    let isSaved = false;
+
+    this.store.pipe(select(selectSavedApplications))
+      .subscribe(a => isSaved = a.filter(ap => ap.id === applicationId).length > 0);
+
+    return isSaved;
   }
 }

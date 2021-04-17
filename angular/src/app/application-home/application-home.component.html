@@ -1,6 +1,33 @@
 <div class="container-fluid">
   <div class="input-container row">
-  <div class="col-sm-12 col-md-6 col-lg-3">
+  
+  <div class="col-sm-12 col-md-4">
+    <mat-form-field appearance="fill">
+      <mat-label>Filter by position</mat-label>
+      <mat-select [formControl]="selectedPositions" (selectionChange)="refreshList()" multiple>
+        <mat-option *ngFor="let pos of getPositions()" [value]="pos">{{pos}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+
+  <div class="col-sm-12 col-md-4">
+    <mat-form-field appearance="fill">
+      <mat-label>Filter by days available</mat-label>
+      <mat-select [formControl]="selectedDays" (selectionChange)="refreshList()" multiple>
+        <mat-option *ngFor="let day of days" [value]="day">{{day | dayName }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-sm-12 col-md-4">
+  <mat-form-field appearance="fill">
+    <mat-label>Search by name</mat-label>
+    <input matInput [formControl]="nameSearch" (input)="refreshList()" type="text" >
+  </mat-form-field>
+  </div>
+</div>
+<div class="input-container row">
+  <div class="col-sm-12 col-md-6">
     <button mat-mini-fab color="primary" (click)="toggleSorting()"><mat-icon matTooltip="Sort {{sortAscending ? 'descending' : 'ascending'}}">{{ sortAscending ? "arrow_upward" : "arrow_downward" }}</mat-icon></button>
     <mat-form-field appearance="fill">
       <mat-label>Order by</mat-label>
@@ -12,36 +39,14 @@
     </mat-form-field>
   </div>
 
-  <div class="col-sm-12 col-md-6 col-lg-3">
-    <mat-form-field appearance="fill">
-      <mat-label>Filter by position</mat-label>
-      <mat-select [formControl]="selectedPositions" (selectionChange)="refreshList()" multiple>
-        <mat-option *ngFor="let pos of getPositions()" [value]="pos">{{pos}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  
-
-  <div class="col-sm-12 col-md-6 col-lg-3">
-    <mat-form-field appearance="fill">
-      <mat-label>Filter by days available</mat-label>
-      <mat-select [formControl]="selectedDays" (selectionChange)="refreshList()" multiple>
-        <mat-option *ngFor="let day of days" [value]="day">{{day | dayName }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div class="col-sm-12 col-md-6 col-lg-3">
-  <mat-form-field appearance="fill">
-    <mat-label>Search by name</mat-label>
-    <input matInput [formControl]="nameSearch" (input)="refreshList()" type="text" >
-  </mat-form-field>
+  <div class="col-sm-12 col-md-6 ">
+    <mat-checkbox color="primary" (change)="toggleSavedOnly($event)">Filter by saved for later</mat-checkbox>
   </div>
 </div>
 </div>
 
 <div class="container">
-  <app-application-list [applications]="displayApplications"></app-application-list>
+  <app-application-list (listStateChanged)="refreshList()" [applications]="displayApplications"></app-application-list>
 </div>
 
 <div class="bookmarks-btn-container">
