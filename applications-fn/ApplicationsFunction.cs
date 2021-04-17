@@ -15,7 +15,7 @@ namespace applications_fn
     {
         [FunctionName("applications")]
         public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             ExecutionContext context,
             ILogger log)
         {
