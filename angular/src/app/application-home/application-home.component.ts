@@ -7,11 +7,15 @@ import { MatSelectChange } from '@angular/material/select';
 import { Store, select } from "@ngrx/store";
 import { retrievedApplications } from "../state/application.actions";
 import { selectBookmarkedApplications, selectSavedApplications } from "../selector/application.selectors";
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { BookmarkDialog } from '../dialog/bookmark-dialog.component';
+
 @Component({
   selector: 'app-application-home',
   templateUrl: './application-home.component.html',
   styleUrls: ['./application-home.component.sass']
 })
+
 export class ApplicationHomeComponent implements OnInit {
   days = Days;
   
@@ -25,7 +29,8 @@ export class ApplicationHomeComponent implements OnInit {
   nameSearch =new FormControl("");
 
   constructor(private ApplicationsService: ApplicationsService,
-    private store: Store ) { }
+    private store: Store,
+    private dialog: MatDialog) { }
   
   ngOnInit(): void {
     this.ApplicationsService.getApplications()
@@ -65,6 +70,7 @@ export class ApplicationHomeComponent implements OnInit {
   }
 
   public openBookmarks() {
+    this.dialog.open(BookmarkDialog)
     this.store.pipe(select(selectBookmarkedApplications)).subscribe(e => console.log(e));
   }
 

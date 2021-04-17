@@ -29,7 +29,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { DayNamePipe } from './day-name.pipe'; 
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { BookmarkDialog } from './dialog/bookmark-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog'; 
 
 const reducers: ActionReducerMap<AppState> = { bookmarks: bookmarkReducer, savedForLater: viewlaterReducer, applications: applicationReducer };
 
@@ -48,7 +49,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     ApplicationListComponent,
     AvailabilityComponent,
     ApplicationHomeComponent,
-    DayNamePipe
+    DayNamePipe,
+    BookmarkDialog
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     MatInputModule,
     MatTooltipModule,
     MatButtonToggleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
