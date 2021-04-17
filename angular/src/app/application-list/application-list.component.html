@@ -1,5 +1,5 @@
 <div class="application-list row">
   <div *ngFor="let app of applications"  class="col-md-12 application-item-container">
-    <app-application-item [application]="app" ></app-application-item>
+    <app-application-item (bookmarkToggled)="handleBookmarkEvent($event)" (saveToggled)="handleSaveEvent($event)" [application]="app" ></app-application-item>
   </div>
 </div>

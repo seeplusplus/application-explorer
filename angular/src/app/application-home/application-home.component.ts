@@ -4,7 +4,9 @@ import { ApplicationsService } from '../applications.service'
 import { Days } from "../availability";
 import {FormControl} from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
-
+import { Store, select } from "@ngrx/store";
+import { retrievedApplications } from "../state/application.actions";
+import { selectBookmarkedApplications, selectSavedApplications } from "../selector/application.selectors";
 @Component({
   selector: 'app-application-home',
   templateUrl: './application-home.component.html',
@@ -22,13 +24,15 @@ export class ApplicationHomeComponent implements OnInit {
   selectedDays = new FormControl([]);
   nameSearch =new FormControl("");
 
-  constructor(private ApplicationsService: ApplicationsService) { }
+  constructor(private ApplicationsService: ApplicationsService,
+    private store: Store ) { }
   
   ngOnInit(): void {
     this.ApplicationsService.getApplications()
       .subscribe(data => { 
         this.applications = data;
         this.displayApplications = this.applications;
+        this.store.dispatch(retrievedApplications({ applications: data }));
       });
   }
 
@@ -58,6 +62,14 @@ export class ApplicationHomeComponent implements OnInit {
       else
         return 0;
     });
+  }
+
+  public openBookmarks() {
+    this.store.pipe(select(selectBookmarkedApplications)).subscribe(e => console.log(e));
+  }
+
+  public viewSaved() {
+    this.store.pipe(select(selectSavedApplications)).subscribe(e => console.log(e));
   }
 
   private employeeAvailableForDays(application: Application, days: string[]){

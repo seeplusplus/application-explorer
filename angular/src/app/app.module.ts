@@ -1,17 +1,23 @@
+// @angular imports
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+// @ngrx imports
+import { StoreModule } from '@ngrx/store';
+// component imports
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApplicationItemComponent } from './application-item/application-item.component';
-import { HttpClientModule } from '@angular/common/http';
 import { ApplicationDetailComponent } from './application-detail/application-detail.component';
 import { ApplicationListComponent } from './application-list/application-list.component';
-import { StoreModule } from '@ngrx/store';
 import { AvailabilityComponent } from './availability/availability.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApplicationHomeComponent } from './application-home/application-home.component';
-
+// state imports 
+import { bookmarkReducer } from './state/bookmarks.reducer';
+import { viewlaterReducer } from './state/viewlater.reducer';
+import { applicationReducer } from './state/application.reducer';
+// material imports 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
@@ -35,7 +41,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ bookmarks: bookmarkReducer, savedForLater: viewlaterReducer, applications: applicationReducer }),
     BrowserAnimationsModule,
     MatSelectModule,
     MatFormFieldModule,

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { Application } from '../application';
 
 
@@ -10,12 +10,32 @@ import { Application } from '../application';
 
 
 export class ApplicationItemComponent implements OnInit {
-  @Input ()
-  application: Application;
+  @Input() application: Application;
+  @Output() bookmarkToggled = new EventEmitter();
+  @Output() saveToggled = new EventEmitter();
+
   savedForLater = false
   isBookmarked = false
   
   constructor() { }
 
   ngOnInit(): void { }
+
+  public onBookmark() {
+    this.isBookmarked = !this.isBookmarked;
+    this.bookmarkToggled
+      .emit({ 
+        applicationId: this.application.id, 
+        applicationBookmarked: this.isBookmarked 
+      });
+  }
+
+  public onSaved() {
+    this.savedForLater = !this.savedForLater;
+    this.saveToggled
+      .emit({
+        applicationId: this.application.id,
+        willViewLater: this.savedForLater
+      })
+  }
 }

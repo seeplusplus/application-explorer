@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from "@ngrx/store";
 import { Application } from '../application';
 
+import { addBookmark, removeBookmark, addForViewLater, removeFromViewLater } from '../state/application.actions'
 
 @Component({
   selector: 'app-application-list',
@@ -14,5 +16,19 @@ export class ApplicationListComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  constructor(private store: Store) {}
 
+  public handleBookmarkEvent(bookmarkEvent) {
+    if (bookmarkEvent.applicationBookmarked)
+      this.store.dispatch(addBookmark({ applicationId: bookmarkEvent.applicationId }));
+    else
+      this.store.dispatch(removeBookmark({  applicationId: bookmarkEvent.applicationId }));
+  }
+
+  public handleSaveEvent(viewLaterEvent) {
+    if (viewLaterEvent.willViewLater)
+      this.store.dispatch(addForViewLater({ applicationId: viewLaterEvent.applicationId }));
+    else
+      this.store.dispatch(removeFromViewLater({  applicationId: viewLaterEvent.applicationId }));
+  }
 }
