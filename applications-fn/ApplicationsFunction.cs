@@ -14,11 +14,13 @@ namespace applications_fn
     public static class ApplicationsFunction
     {
         [FunctionName("applications")]
-        public static async Task<IActionResult> Run(
+        public static IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
+            ExecutionContext context,
             ILogger log)
         {
-            var applications = JsonConvert.DeserializeObject<List<Application>>(System.IO.File.ReadAllText("./data.json"));
+            var path = System.IO.Path.Combine(context.FunctionAppDirectory, "data.json");
+            var applications = JsonConvert.DeserializeObject<List<Application>>(System.IO.File.ReadAllText(path));
             
 
             return new OkObjectResult(applications);
