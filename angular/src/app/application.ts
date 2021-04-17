@@ -13,9 +13,4 @@ export class Application {
     isFavorited: boolean;
     isBookmarked: boolean;
     isMarkedForLater: boolean;
-
-    public isAvailableForDays(days: string[]): boolean {
-        console.log(days);
-        return days.filter(d => this.availability[d] > 0).length > 0;
-    }
 }
