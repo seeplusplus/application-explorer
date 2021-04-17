@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <div class="row">
-  <div class="button-container col-sm-12 col-md-6 col-lg-3">
+  <div class="input-container row">
+  <div class="col-sm-12 col-md-6 col-lg-3">
     <mat-form-field appearance="fill">
     <mat-label>Order by</mat-label>
     <mat-select [formControl]="orderByValue">
@@ -9,10 +9,10 @@
       <mat-option value="experience">Experience</mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-fab color="primary" (click)="toggleSorting()"><mat-icon>{{ sortAscending ? "arrow_upward" : "arrow_downward" }}</mat-icon></button>
+  <button mat-fab color="primary" (click)="toggleSorting()"><mat-icon  matTooltip="Sort {{sortAscending ? 'descending' : 'ascending'}}">{{ sortAscending ? "arrow_upward" : "arrow_downward" }}</mat-icon></button>
   </div>
 
-  <div class="button-container col-sm-12 col-md-6 col-lg-3">
+  <div class="col-sm-12 col-md-6 col-lg-3">
     <mat-form-field appearance="fill">
       <mat-label>Filter by position</mat-label>
       <mat-select [formControl]="selectedPositions" (selectionChange)="refreshList()" multiple>
@@ -22,7 +22,7 @@
   </div>
   
 
-  <div class="button-container col-sm-12 col-md-6 col-lg-3">
+  <div class="col-sm-12 col-md-6 col-lg-3">
     <mat-form-field appearance="fill">
       <mat-label>Filter by days available</mat-label>
       <mat-select [formControl]="selectedDays" (selectionChange)="refreshList()" multiple>
@@ -31,7 +31,7 @@
     </mat-form-field>
   </div>
 
-  <div class="button-container col-sm-12 col-md-6 col-lg-3">
+  <div class="col-sm-12 col-md-6 col-lg-3">
   <mat-form-field appearance="fill">
     <mat-label>Search by name</mat-label>
     <input matInput [formControl]="nameSearch" (input)="refreshList()" type="text" >
@@ -43,5 +43,5 @@
 <app-application-list [applications]="displayApplications"></app-application-list>
 
 <div class="bookmarks-btn-container">
-  <button mat-mini-fab color="primary" (click)="openBookmarks()"><mat-icon>bookmarks</mat-icon></button>
+  <button mat-mini-fab color="primary" (click)="openBookmarks()"><mat-icon matTooltip="View your bookmarks!">bookmarks</mat-icon></button>
 </div>

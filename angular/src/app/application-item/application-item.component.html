@@ -1,6 +1,6 @@
 <div class="application row">
     <div class="col-12">
-        <span class="name">{{ application.name }}</span>
+        <a [routerLink]="['/detail', application.id]"><span class="name">{{ application.name }}</span></a>
     </div>
     <div class="col-12">
         <p>Applied for the <span class="position">{{ application.position }}</span> position on <span class="applied">{{ application.applied | date }}</span>.</p>
@@ -9,8 +9,8 @@
         <app-availability [availability]="application.availability"></app-availability>
     </div>
     <div class="col-12 application-btn-group">
-        <button color="{{isBookmarked ? 'accent' : 'primary'}}" (click)="onBookmark()" mat-mini-fab><mat-icon>bookmark</mat-icon></button>
-        <button color="{{savedForLater ? 'accent' : 'primary'}}" (click)="onSaved()" mat-mini-fab><mat-icon>search</mat-icon></button>
+        <button color="{{isBookmarked ? 'accent' : 'primary'}}" (click)="onBookmark()" mat-mini-fab><mat-icon matTooltip="Bookmark this application!">bookmark</mat-icon></button>
+        <button color="{{savedForLater ? 'accent' : 'primary'}}" (click)="onSaved()" mat-mini-fab><mat-icon matTooltip="Save this application for later">search</mat-icon></button>
     </div>
 </div>
 
