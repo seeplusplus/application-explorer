@@ -3,5 +3,23 @@
         <mat-icon>arrow_back</mat-icon>
     </button>
 </div>
+<div class="container">
+    <h1>{{ application.name }}</h1>
+    <h2>About this application</h2>
+    <p>Applied for the <span>{{application.position }}</span> position on <span>{{application.applied | date }}</span></p>
 
-<p>{{ application.name }}</p>
+    <p>Selected experience level: <span>{{ application.experience}} </span> </p>
+
+    <h2>Availability</h2>
+    <app-availability [availability]="application.availability"></app-availability>
+    
+    <h2>Applicant questions</h2>
+    <div *ngFor="let q of application.questions">
+        <div class="question">
+            <span>{{q.text}}</span>
+        </div>
+        <div class="answer">
+            <span>{{q.answer}}</span>
+        </div>
+    </div>
+</div>
