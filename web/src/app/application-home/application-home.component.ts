@@ -1,14 +1,13 @@
 import { Component,  OnInit } from '@angular/core';
-import { Application } from '../application';
-import { ApplicationsService } from '../applications.service'
-import { Days } from "../availability";
+import { Application } from '../types/application';
+import { ApplicationsService } from '../applications.service';
+import { Days } from '../types/availability';
 import {FormControl} from '@angular/forms';
-import { MatSelectChange } from '@angular/material/select';
-import { Store, select } from "@ngrx/store";
-import { retrievedApplications } from "../state/application.actions";
-import { selectBookmarkedApplications, selectSavedApplications } from "../selector/application.selectors";
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { BookmarkDialog } from '../dialog/bookmark-dialog.component';
+import { Store, select } from '@ngrx/store';
+import { retrievedApplications } from '../state/application.actions';
+import { selectSavedApplications } from '../selector/application.selectors';
+import {MatDialog} from '@angular/material/dialog';
+import { BookmarkDialogComponent } from '../dialog/bookmark-dialog.component';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 @Component({
   selector: 'app-application-home',
@@ -18,65 +17,71 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export class ApplicationHomeComponent implements OnInit {
   days = Days;
-  
+
   applications: Application[];
   displayApplications: Application[];
-  
+
   sortAscending = true;
-  orderByValue = new FormControl("name");
+  orderByValue = new FormControl('name');
   selectedPositions = new FormControl([]);
   selectedDays = new FormControl([]);
-  nameSearch = new FormControl("");
+  nameSearch = new FormControl('');
   filterOnSaved = false;
 
-  constructor(private ApplicationsService: ApplicationsService,
+  constructor(
+    private applicationsService: ApplicationsService,
     private store: Store,
-    private dialog: MatDialog) { }
-  
+    private dialog: MatDialog
+  ) { }
+
   ngOnInit(): void {
-    this.ApplicationsService.getApplications()
-      .subscribe(data => { 
+    this.applicationsService.getApplications()
+      .subscribe(data => {
         this.applications = data;
         this.displayApplications = this.applications;
         this.store.dispatch(retrievedApplications({ applications: data }));
       });
   }
 
-  public toggleSorting() {
+  public toggleSorting(): void {
     this.sortAscending = !this.sortAscending;
-    this.refreshList()
+    this.refreshList();
   }
-  public toggleSavedOnly(event: MatCheckboxChange) {
+  public toggleSavedOnly(event: MatCheckboxChange): void {
     this.filterOnSaved = event.checked;
-    this.refreshList()
+    this.refreshList();
   }
 
-  public getPositions() {
-    return ["Server", "Cook", "Chef"]
+  public getPositions(): string[] {
+    return ['Server', 'Cook', 'Chef'];
   }
-  public refreshList() {
+
+  public refreshList(): void {
     this.displayApplications = this.applications
       .filter(value => {
         return value.name.toLowerCase().match(this.nameSearch.value.toLowerCase())
         && (this.selectedPositions.value.length === 0 || this.selectedPositions.value.indexOf(value.position) >= 0)
         && (this.selectedDays.value.length === 0 || this.selectedDays.value.every((d) => value.availability[d] > 0))
-        && (!this.filterOnSaved || this.applicationIsSaved(value.id))
+        && (!this.filterOnSaved || this.applicationIsSaved(value.id));
       });
-    
-    let sortFactor = (this.sortAscending) ? -1 : 1;
+
+    const sortFactor = (this.sortAscending) ? -1 : 1;
 
     this.displayApplications.sort((a, b) => {
-      if (a[this.orderByValue.value] > b[this.orderByValue.value])
+      if (a[this.orderByValue.value] > b[this.orderByValue.value]) {
         return sortFactor;
-      else if (a[this.orderByValue.value] < b[this.orderByValue.value])
+      }
+      else if (a[this.orderByValue.value] < b[this.orderByValue.value]) {
         return -1 * sortFactor;
-      else
+ }
+      else {
         return 0;
+ }
     });
   }
 
-  public openBookmarks() {
-    this.dialog.open(BookmarkDialog)
+  public openBookmarks(): void {
+    this.dialog.open(BookmarkDialogComponent);
   }
 
   private applicationIsSaved(applicationId: number): boolean {

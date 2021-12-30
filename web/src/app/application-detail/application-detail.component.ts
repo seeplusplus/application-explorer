@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 
 import { selectApplicationById } from '../selector/application.selectors';
-import { Application } from '../application';
+import { Application } from '../types/application';
 
 @Component({
   selector: 'app-application-detail',
@@ -18,7 +18,7 @@ export class ApplicationDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.route.params.subscribe((p) => 
+    this.route.params.subscribe((p) =>
       this.store.pipe(select(selectApplicationById, { id: p.id}))
         .subscribe(a => this.application = a));
   }

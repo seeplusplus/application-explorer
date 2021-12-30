@@ -1,8 +1,8 @@
-import { Application } from "../application";
+import { Application } from '../types/application';
 
-export interface AppState 
+export interface AppState
 {
-    applications: Application[],
+    applications: Application[];
     bookmarks: ReadonlyArray<number>;
     savedForLater: ReadonlyArray<number>;
 }

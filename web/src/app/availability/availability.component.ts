@@ -1,18 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Availability } from '../availability';
+import { Component, Input } from '@angular/core';
+import { Availability } from '../types/availability';
+
 @Component({
   selector: 'app-availability',
   templateUrl: './availability.component.html',
   styleUrls: ['./availability.component.sass']
 })
-export class AvailabilityComponent implements OnInit {
+export class AvailabilityComponent {
   @Input()
   availability: Availability;
-  days = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su'];
-  
+  readonly days = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su'];
+
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

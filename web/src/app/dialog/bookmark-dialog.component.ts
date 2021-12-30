@@ -1,20 +1,18 @@
-import { Component,  Inject, OnInit } from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { selectBookmarkedApplications } from '../selector/application.selectors';
-import { Application } from '../application';
+import { Application } from '../types/application';
 @Component({
   selector: 'app-bookmark-dialog',
   templateUrl: 'bookmark-dialog.component.html',
 })
-export class BookmarkDialog implements OnInit {
-  bookmarkedApplications: Application[]
+export class BookmarkDialogComponent implements OnInit {
+  bookmarkedApplications: Application[];
 
   constructor(private store: Store) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
       this.store.pipe(select(selectBookmarkedApplications))
         .subscribe(d => this.bookmarkedApplications = d);
   }
-
 }

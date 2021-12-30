@@ -85,6 +85,9 @@
         "always"
       ]
     },
+    "no-unused-variable": [
+      true
+    ],
     "space-before-function-paren": {
       "options": {
         "anonymous": "never",

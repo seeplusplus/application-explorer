@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ApplicationHomeComponent } from './application-home/application-home.component'
-import { ApplicationDetailComponent } from './application-detail/application-detail.component'
+import { ApplicationHomeComponent } from './application-home/application-home.component';
+import { ApplicationDetailComponent } from './application-detail/application-detail.component';
 
 const routes: Routes = [
   { path: 'detail/:id', component: ApplicationDetailComponent },
