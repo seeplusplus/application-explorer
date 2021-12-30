@@ -6,7 +6,7 @@ import { ApplicationsService } from './applications.service';
 describe('ApplicationsService', () => {
   let service: ApplicationsService;
   const httpClientMock = jasmine.createSpyObj<HttpClient>('HttpClient', ['get']);
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [

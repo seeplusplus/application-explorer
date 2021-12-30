@@ -1,4 +1,6 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { ApplicationListComponent } from './application-list.component';
 
@@ -8,7 +10,15 @@ describe('ApplicationListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApplicationListComponent ]
+      declarations: [
+        ApplicationListComponent
+      ],
+      providers: [
+        provideMockStore()
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ]
     })
     .compileComponents();
   }));
