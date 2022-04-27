@@ -4,7 +4,9 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 import { ApplicationListComponent } from './application-list.component';
 
-describe('ApplicationListComponent', () => {
+describe('ApplicationListComponent', applicationListComponentTestSuite);
+
+function applicationListComponentTestSuite() {
   let component: ApplicationListComponent;
   let fixture: ComponentFixture<ApplicationListComponent>;
 
@@ -32,4 +34,4 @@ describe('ApplicationListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}

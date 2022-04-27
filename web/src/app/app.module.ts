@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 // @ngrx imports
 import { StoreModule, ActionReducerMap, MetaReducer, ActionReducer } from '@ngrx/store';
-import { localStorageSync } from 'ngrx-store-localstorage';
+import { localStorageSync } from 'ngrx-store-localstorage/dist/lib';
 // component imports
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
