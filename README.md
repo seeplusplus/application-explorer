@@ -1,5 +1,7 @@
 # application-explorer
 
+[![CircleCI](https://circleci.com/gh/seeplusplus/application-explorer/tree/main.svg?style=svg)](https://circleci.com/gh/seeplusplus/application-explorer/tree/main)
+
 ## Angular app
 
 Allows the user to explore and manipulate the applications.
