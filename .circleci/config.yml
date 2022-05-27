@@ -12,12 +12,14 @@ jobs:
       - checkout
       - run:
           name: NPM install
-          command: cd web && npm install
+          command: npm install
+          working_directory: web
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - run:
           name: Run unit tests
-          command: cd web && npm run test -- --no-watch --browsers=Chrome
+          command: npm run test -- --no-watch --browsers=Chrome
+          working_directory: web
       - store_test_results:
           path: ./web/junit
       - save_cache:
@@ -28,24 +30,26 @@ jobs:
   build_server:
     docker:
       - image: 'cimg/node:18.0'
+    working_directory: ~/project/web
     steps:
       - restore_cache:
           keys:
             - web-cache
       - run:
           name: Build server
-          command: cd ./web && npx ng run angular:server
+          command: npx ng run angular:server
 
   build_browser:
     docker:
       - image: 'cimg/node:18.0'
+    working_directory: ~/project/web
     steps:
       - restore_cache:
           keys:
           - web-cache
       - run:
           name: Build client
-          command: cd ./web && npx ng build
+          command: npx ng build
 
 
 
