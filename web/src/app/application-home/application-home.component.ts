@@ -1,14 +1,15 @@
-import { Component,  OnInit } from '@angular/core';
-import { Application } from '../types/application';
-import { ApplicationsService } from '../applications.service';
-import { Days } from '../types/availability';
-import {FormControl} from '@angular/forms';
-import { Store, select } from '@ngrx/store';
-import { retrievedApplications } from '../state/application.actions';
-import { selectSavedApplications } from '../selector/application.selectors';
-import {MatDialog} from '@angular/material/dialog';
-import { BookmarkDialogComponent } from '../dialog/bookmark-dialog.component';
+import { isPlatformServer } from '@angular/common';
+import { Component, Inject, OnInit, Optional, PLATFORM_ID } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
+import { ApplicationsService } from '../applications.service';
+import { BookmarkDialogComponent } from '../dialog/bookmark-dialog.component';
+import { selectSavedApplications } from '../selector/application.selectors';
+import { retrievedApplications } from '../state/application.actions';
+import { Application } from '../types/application';
+import { Days } from '../types/availability';
 @Component({
   selector: 'app-application-home',
   templateUrl: './application-home.component.html',
@@ -30,11 +31,15 @@ export class ApplicationHomeComponent implements OnInit {
 
   constructor(
     private applicationsService: ApplicationsService,
-    private store: Store,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(PLATFORM_ID) private platformId: any,
+    @Optional() private store: Store,
   ) { }
 
   ngOnInit(): void {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
     this.applicationsService.getApplications()
       .subscribe(data => {
         this.applications = data;
