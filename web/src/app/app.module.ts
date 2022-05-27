@@ -1,45 +1,41 @@
 // @angular imports
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserModule } from '@angular/platform-browser';
 
 // component imports
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ApplicationItemComponent } from './application-item/application-item.component';
-import { ApplicationDetailComponent } from './application-detail/application-detail.component';
-import { ApplicationListComponent } from './application-list/application-list.component';
-import { AvailabilityComponent } from './availability/availability.component';
 import { ApplicationHomeComponent } from './application-home/application-home.component';
-
-// material imports
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { ApplicationItemComponent } from './application-item/application-item.component';
+import { ApplicationListComponent } from './application-list/application-list.component';
+import { AvailabilityModule } from './availability/availability.module';
 import { DayNamePipe } from './day-name.pipe';
 import { BookmarkDialogComponent } from './dialog/bookmark-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ApplicationItemComponent,
-    ApplicationDetailComponent,
     ApplicationListComponent,
-    AvailabilityComponent,
     ApplicationHomeComponent,
     DayNamePipe,
     BookmarkDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    AvailabilityModule,
     AppRoutingModule,
     HttpClientModule,
     MatSelectModule,

@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ApplicationHomeComponent } from './application-home/application-home.component';
-import { ApplicationDetailComponent } from './application-detail/application-detail.component';
 
 const routes: Routes = [
-  { path: 'detail/:id', component: ApplicationDetailComponent },
+  {
+    path: 'detail', 
+    loadChildren: () => import('./application-detail/details.module').then(m => m.DetailsModule)
+  },
   { path: '', component: ApplicationHomeComponent },
   { path: '**', redirectTo: '/' }
 ];
