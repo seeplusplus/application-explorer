@@ -5,7 +5,7 @@ orbs:
   browser-tools: circleci/browser-tools@1.3.0
 
 jobs:
-  test:
+  test_and_save:
     docker: 
       - image: 'cimg/node:18.0-browsers'
     steps:
@@ -20,12 +20,47 @@ jobs:
           command: cd web && npm run test -- --no-watch --browsers=Chrome
       - store_test_results:
           path: ./web/junit
+      - save_cache:
+          key: web-cache
+          paths:
+            - ./web
+
+  build_server:
+    docker:
+      - image: 'cimg/node:18.0'
+    steps:
+      - restore_cache:
+          keys:
+            - web-cache
+      - run:
+          name: Build server
+          command: cd ./web && npx ng run angular:server
+
+  build_browser:
+    docker:
+      - image: 'cimg/node:18.0'
+    steps:
+      - restore_cache:
+          keys:
+          - web-cache
+      - run:
+          name: Build client
+          command: cd ./web && npx ng build
+
+
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   application_explorer_web:
     jobs:
-      - test
+      - test_and_save
+      - build_server:
+          requires:
+            - test_and_save
+      - build_browser:
+          requires:
+            - test_and_save
 
 
